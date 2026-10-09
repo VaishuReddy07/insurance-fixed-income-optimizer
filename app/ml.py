@@ -1,4 +1,4 @@
-"""Small, reproducible Isolation Forest serving path for synthetic return data."""
+"""Score the generated return history with an Isolation Forest."""
 
 from threading import Lock
 
@@ -62,5 +62,5 @@ def anomaly_model_report(frame: pd.DataFrame, limit: int = 100) -> dict:
         "contamination_setting": CONTAMINATION,
         "flagged_observation_count": int(len(flagged)),
         "flags": flags,
-        "intended_use": "Exploratory review of synthetic observations; not a trading, risk-limit, or regulatory decision.",
+        "intended_use": "Demo only: inspect flagged synthetic observations; do not use them for investment decisions.",
     }

@@ -166,7 +166,7 @@ def performance(db: Session = Depends(get_db)):
 
 @app.get("/api/v1/analytics/ml-anomalies")
 def ml_anomalies(db: Session = Depends(get_db)):
-    """Exploratory Isolation Forest inference over synthetic return observations."""
+    """Return Isolation Forest flags for the generated return history."""
     return anomaly_model_report(load_returns(db, fill_missing=False))
 
 @app.get("/api/v1/analytics/quality")
@@ -195,6 +195,3 @@ def data_quality(db: Session = Depends(get_db)):
     return {"data_type":"synthetic","instrument_count":len(instruments),"observation_count":len(frame),
             "missing_values":missing_values,"reference_data_issues":issues,
             "return_outlier_flags":flags[:100],"outlier_method":"median absolute deviation; |robust z| >= 3"}
-
-
-
