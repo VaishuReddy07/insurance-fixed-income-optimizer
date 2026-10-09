@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insurance Fixed Income | Portfolio Lab</title>
+<style>
+:root{--ink:#142b3b;--muted:#617482;--line:#dce5e9;--bg:#f4f7f8;--card:#fff;--blue:#176b87;--teal:#23a18c;--red:#b34c4c;--shadow:0 8px 26px #142b3b0a}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,"Segoe UI",Arial,sans-serif}.top{background:#102b3b;color:#fff;padding:18px max(24px,calc((100% - 1440px)/2));display:flex;justify-content:space-between;align-items:center}.brand{font-size:18px;font-weight:700;letter-spacing:.2px}.subbrand{font-size:12px;color:#b6cbd4;margin-top:3px}.status{font-size:12px;color:#c9e8df}.status i{display:inline-block;background:#49c5a6;width:8px;height:8px;border-radius:50%;margin-right:7px}.wrap{max-width:1440px;padding:26px 24px 48px;margin:auto}.intro{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:20px}.intro h1{margin:0 0 4px;font-size:25px}.intro p{color:var(--muted);margin:0}.badge{background:#fff4dc;color:#805e1e;padding:8px 12px;border-radius:20px;font-size:12px;white-space:nowrap}.layout{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.controls{padding:18px;position:sticky;top:14px}.card h2{font-size:15px;margin:0 0 15px}.field{margin:12px 0}.field label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #cbd8df;border-radius:7px;padding:9px 10px;font:inherit;color:var(--ink);background:#fff}.toggle{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;margin:15px 0}.btn{width:100%;border:0;border-radius:7px;background:var(--blue);color:#fff;padding:11px 14px;font-weight:650;font-size:14px;cursor:pointer}.btn:disabled{opacity:.55;cursor:wait}.message{font-size:12px;color:var(--muted);margin-top:10px;min-height:18px}.main{display:grid;gap:16px}.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}.kpi{padding:15px}.kpi span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.45px}.kpi strong{display:block;font-size:22px;margin-top:7px}.kpi small{color:var(--muted);font-size:11px}.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.panel{padding:18px}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.panel-title h2{margin:0}.small{color:var(--muted);font-size:11px}.chart{width:100%;height:250px;display:block}.table-wrap{overflow:auto;max-height:440px}table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}th{text-align:left;color:var(--muted);font-weight:600;background:#f7f9fa;position:sticky;top:0}td,th{padding:10px;border-bottom:1px solid #edf1f3}td.num,th.num{text-align:right}.rating{font-weight:700;color:var(--blue)}.quality{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}.quality strong{color:var(--ink)}.empty{padding:30px;color:var(--muted);text-align:center;border:1px dashed var(--line);border-radius:9px}.footer{font-size:11px;color:var(--muted);margin-top:16px;text-align:center}.loading{color:var(--muted)}@media(max-width:1200px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:1050px){.layout{grid-template-columns:260px minmax(0,1fr)}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:760px){.wrap{padding:18px 12px}.layout,.grid2{grid-template-columns:1fr}.controls{position:static}.kpis{grid-template-columns:repeat(2,1fr)}.intro{display:block}.badge{display:inline-block;margin-top:12px}.top{padding:14px 16px}}
+</style>
+</head>
+<body>
+<header class="top"><div><div class="brand">Insurance Fixed Income | Portfolio Lab</div><div class="subbrand">Portfolio construction and monitoring research prototype</div></div><div class="status" id="apiStatus"><i></i>Connecting…</div></header>
+<div class="wrap">
+<div class="intro"><div><h1>Portfolio analytics</h1><p>Set mandate constraints, run the optimizer, and review portfolio analytics.</p></div><div class="badge">Synthetic data · Educational use only</div></div>
+<div class="layout">
+<aside class="card controls"><h2>Mandate constraints</h2>
+<div class="field"><label>API key <span>optional</span></label><input id="apiKey" type="password" autocomplete="off" placeholder="Required only when configured"><button type="button" onclick="saveApiKey()" style="margin-top:6px;border:1px solid #cbd8df;background:#fff;color:#176b87;padding:7px 10px;border-radius:6px;cursor:pointer">Use key for this tab</button></div>
+<div class="field"><label>Target duration <span>years</span></label><input id="targetDuration" type="number" min="0.5" max="15" step="0.1" value="5"></div>
+<div class="field"><label>Duration tolerance <span>± years</span></label><input id="durationTolerance" type="number" min="0.1" max="5" step="0.1" value="1"></div>
+<div class="field"><label>Minimum credit rating</label><select id="minRating"><option>AAA</option><option>AA</option><option>A</option><option selected>BBB</option></select></div>
+<div class="field"><label>Maximum single bond weight <span>% NAV</span></label><input id="maxWeight" type="number" min="1" max="25" value="8"></div>
+<div class="field"><label>Maximum issuer exposure <span>% NAV</span></label><input id="maxIssuer" type="number" min="5" max="40" value="15"></div>
+<div class="field"><label>Minimum liquidity score <span>0–1</span></label><input id="minLiquidity" type="number" min="0" max="1" step="0.05" value="0.35"></div>
+<div class="field"><label>Minimum ESG score <span>0–100</span></label><input id="minEsg" type="number" min="0" max="100" value="0"></div>
+<div class="field"><label>Risk aversion <span>0–30</span></label><input id="riskAversion" type="number" min="0" max="30" step="0.5" value="4"></div>
+<label class="toggle"><input id="excludeEnergy" type="checkbox"> Exclude energy issuers</label>
+<button class="btn" id="runButton" onclick="runOptimizer()">Run portfolio optimization</button><div class="message" id="message"></div>
+</aside>
+<main class="main">
+<section class="kpis">
+<div class="card kpi"><span>Expected yield</span><strong id="yieldKpi">—</strong><small>weighted bond yield</small></div>
+<div class="card kpi"><span>Portfolio duration</span><strong id="durationKpi">—</strong><small>years</small></div>
+<div class="card kpi"><span>Annualized volatility</span><strong id="volKpi">—</strong><small>synthetic history</small></div>
+<div class="card kpi"><span>Daily VaR · 95%</span><strong id="varKpi">—</strong><small>historical simulation</small></div>
+<div class="card kpi"><span>Capital proxy</span><strong id="capitalKpi">—</strong><small>% NAV · illustrative only</small></div>
+<div class="card kpi"><span>ECB AAA EUR 10Y</span><strong id="ecbKpi">—</strong><small id="ecbDate">Daily reference yield</small></div>
+</section>
+<section class="grid2">
+<div class="card panel"><div class="panel-title"><h2>Portfolio vs equal-weight universe</h2><span class="small" id="perfSummary">Run optimizer to begin</span></div><canvas class="chart" id="performanceChart"></canvas><div class="small"><span style="color:#168a82">━━ Portfolio</span>　<span style="color:#a8b8c0">━━ Equal-weight benchmark</span> · Growth of 1 unit using generated returns.</div></div>
+<div class="card panel"><div class="panel-title"><h2>Issuer exposure</h2><span class="small">Largest positions</span></div><canvas class="chart" id="issuerChart"></canvas></div>
+</section>
+<section class="card panel"><div class="panel-title"><h2>Optimized holdings</h2><div style="display:flex;gap:12px;align-items:center"><span class="small" id="runInfo">No optimization run yet</span><button id="csvButton" onclick="exportCsv()" style="display:none;border:1px solid #cbd8df;background:#fff;color:#176b87;padding:7px 10px;border-radius:6px;cursor:pointer">Download CSV</button></div></div><div id="positionsEmpty" class="empty">Run optimization to create a portfolio.</div><div class="table-wrap" id="positionsWrap" style="display:none"><table><thead><tr><th>Instrument</th><th>Issuer</th><th>Rating</th><th>Sector</th><th class="num">Yield</th><th class="num">Duration</th><th class="num">Spread</th><th class="num">ESG</th><th class="num">Weight</th></tr></thead><tbody id="positionsBody"></tbody></table></div></section>
+<section class="card panel"><div class="panel-title"><h2>Data quality checks</h2><span class="small">Synthetic source data</span></div><div class="quality" id="qualitySummary">Loading checks…</div></section>
+</main></div>
+<div class="footer">Research prototype only. Synthetic data, illustrative capital proxy, and historical simulation are not investment advice or regulatory reporting.</div>
+</div>
+<script src="/static/dashboard.js?v=2"></script>
+</body></html>
